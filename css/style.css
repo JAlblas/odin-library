@@ -12,6 +12,7 @@ body {
     margin: 0 auto;
     width: 80%;
     height: 100vh;
+    font-family: "Roboto", sans-serif;
 }
 
 .main {
@@ -23,4 +24,22 @@ body {
     padding: 25px;
 }
 
-dialog {}
+dialog {
+    width: 30vw;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input[type='checkbox'] {
+    align-self: flex-start;
+}
