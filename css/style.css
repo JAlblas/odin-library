@@ -1,14 +1,26 @@
 html {
-    background-color: EFEFEF;
+    background-color: #182a59;
+    margin: 0;
+}
+
+body {
+    margin: 0;
 }
 
 .container {
     background-color: #FFF;
-    display: flex;
+    margin: 0 auto;
+    width: 80%;
+    height: 100vh;
 }
 
 .main {
-    width: 70%;
+    background-color: #FFF;
 }
 
-aside {}
+.main h1 {
+    margin: 0;
+    padding: 25px;
+}
+
+dialog {}
