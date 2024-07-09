@@ -1,5 +1,9 @@
+:root {
+    --primary-bg-color: #182a59;
+}
+
 html {
-    background-color: #182a59;
+    background-color: var(--primary-bg-color);
     margin: 0;
 }
 
@@ -10,6 +14,7 @@ body {
 .container {
     background-color: #FFF;
     margin: 0 auto;
+    padding: 25px;
     width: 80%;
     height: 100vh;
     font-family: "Roboto", sans-serif;
@@ -21,7 +26,6 @@ body {
 
 .main h1 {
     margin: 0;
-    padding: 25px;
 }
 
 dialog {
