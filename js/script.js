@@ -20,7 +20,7 @@ const myLibrary = [
 
 function addBookToLibrary(title, author, pages, read) {
     const book = new Book(title, author, pages, read);
-    books.push(book);
+    myLibrary.push(book);
 }
 
 function loadContent() {
@@ -55,12 +55,38 @@ function loadContent() {
 }
 
 const dialog = document.querySelector('dialog');
+const createBook = document.querySelector('#createBook');
+const removeModal = document.querySelector('#removeModal');
+
+const form = document.querySelector('form');
+const titleInput = form.querySelector('#titleInput');
+const authorInput = form.querySelector('#authorInput');
+const pagesInput = form.querySelector('#pagesInput');
+const readInput = form.querySelector('#readInput');
+
+removeModal.addEventListener("click", (e) => {
+    e.preventDefault();
+    dialog.close();
+
+})
+
+createBook.addEventListener("click", (e) => {
+    e.preventDefault();
+    const title = titleInput.value;
+    const author = authorInput.value;
+    const pages = pagesInput.value;
+    const read = readInput.checked;
+
+    addBookToLibrary(title, author, pages, read);
+
+    loadContent();
+    dialog.close();
+})
+
 
 function showModal() {
     dialog.showModal();
 }
-
-
 
 
 loadContent();

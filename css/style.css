@@ -66,6 +66,11 @@ dialog {
     width: 30vw;
 }
 
+::backdrop {
+    opacity: 0.75;
+    background-color: #000;
+}
+
 .field {
     display: flex;
     flex-direction: column;
