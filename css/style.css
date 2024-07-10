@@ -3,8 +3,9 @@
 }
 
 html {
-    background-color: var(--primary-bg-color);
+    background-color: #FFF;
     margin: 0;
+
 }
 
 body {
@@ -12,20 +13,35 @@ body {
 }
 
 .container {
-    background-color: #FFF;
+    background-color: var(--primary-bg-color);
     margin: 0 auto;
     padding: 25px;
-    width: 80%;
-
+    color: #FFF;
     font-family: "Roboto", sans-serif;
+    height: 100vh;
 }
 
 .main {
-    background-color: #FFF;
+    background-color: var(--primary-bg-color);
 }
 
 .main h1 {
-    margin: 0;
+    margin: 25px 0px;
+}
+
+.books {
+    color: #000;
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-gap: 1rem;
+}
+
+.book {
+    background-color: #FFF;
+    padding: 10px;
+    border: 2px solid #e7e7e7;
+    border-radius: 4px;
 }
 
 dialog {
