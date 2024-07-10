@@ -55,7 +55,13 @@ function loadContent() {
 }
 
 const dialog = document.querySelector('dialog');
-//dialog.showModal();
+
+function showModal() {
+    dialog.showModal();
+}
+
+
+
 
 loadContent();
 
