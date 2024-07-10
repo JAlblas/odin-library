@@ -18,15 +18,37 @@ const myLibrary = [
     new Book("The Da Vinci Code", "Dan Brown", 689, true)
 ];
 
+
+const dialog = document.querySelector('dialog');
+const createBook = document.querySelector('#createBook');
+const removeModal = document.querySelector('#removeModal');
+
+const form = document.querySelector('form');
+const titleInput = form.querySelector('#titleInput');
+const authorInput = form.querySelector('#authorInput');
+const pagesInput = form.querySelector('#pagesInput');
+const readInput = form.querySelector('#readInput');
+
 function addBookToLibrary(title, author, pages, read) {
     const book = new Book(title, author, pages, read);
     myLibrary.push(book);
 }
 
+function removeBook(event) {
+    const index = event.target.getAttribute('book-index');
+    myLibrary.splice(index, 1);
+    loadContent();
+}
+
+function updateBookRead() {
+    console.log("Update read status");
+}
+
 function loadContent() {
     const booksDiv = document.querySelector('.books');
     booksDiv.innerHTML = "";
-    myLibrary.forEach(book => {
+    myLibrary.forEach((book, index) => {
+
         const bookDiv = document.createElement('div');
         bookDiv.classList.add('book');
         const bookTitle = document.createElement('h4');
@@ -49,20 +71,21 @@ function loadContent() {
         bookRead.innerText = book.read ? "Book read" : "Book not read";
         bookDiv.appendChild(bookRead);
 
+        const buttonDiv = document.createElement('div');
+        buttonDiv.classList.add('button-div');
+        const removeButton = document.createElement('button');
+        removeButton.classList.add('remove');
+        removeButton.setAttribute('book-index', index);
+        removeButton.innerText = "Remove";
+        removeButton.addEventListener("click", removeBook);
+
+        buttonDiv.appendChild(removeButton);
+        bookDiv.appendChild(buttonDiv);
+
         booksDiv.append(bookDiv);
     });
 
 }
-
-const dialog = document.querySelector('dialog');
-const createBook = document.querySelector('#createBook');
-const removeModal = document.querySelector('#removeModal');
-
-const form = document.querySelector('form');
-const titleInput = form.querySelector('#titleInput');
-const authorInput = form.querySelector('#authorInput');
-const pagesInput = form.querySelector('#pagesInput');
-const readInput = form.querySelector('#readInput');
 
 removeModal.addEventListener("click", (e) => {
     e.preventDefault();
@@ -70,7 +93,7 @@ removeModal.addEventListener("click", (e) => {
 
 })
 
-createBook.addEventListener("click", (e) => {
+form.addEventListener("submit", (e) => {
     e.preventDefault();
     const title = titleInput.value;
     const author = authorInput.value;

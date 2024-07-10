@@ -62,6 +62,19 @@ nav button {
     border-radius: 4px;
 }
 
+.button-div {
+    display: flex;
+    justify-content: right;
+}
+
+.remove {
+    background-color: rgb(200, 38, 38);
+    color: #FFF;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+}
+
 dialog {
     width: 30vw;
 }
