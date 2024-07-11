@@ -5,8 +5,8 @@ function Book(title, author, pages, read) {
     this.read = read;
 }
 
-Book.prototype.info = function () {
-    console.log(`${this.title}, ${this.author}, ${this.pages}, ${this.read}`);
+Book.prototype.toggleRead = function () {
+    this.read = !this.read;
 }
 
 const myLibrary = [
@@ -40,8 +40,14 @@ function removeBook(event) {
     loadContent();
 }
 
-function updateBookRead() {
-    console.log("Update read status");
+function toggleBookRead() {
+    const index = event.target.getAttribute('book-index');
+    let book = myLibrary[index];
+    if (book) {
+        book.toggleRead();
+        loadContent();
+    }
+
 }
 
 function loadContent() {
@@ -73,13 +79,22 @@ function loadContent() {
 
         const buttonDiv = document.createElement('div');
         buttonDiv.classList.add('button-div');
+
+        const toggleButton = document.createElement('button');
+        toggleButton.classList.add('toggle');
+        toggleButton.setAttribute('book-index', index);
+        toggleButton.innerText = "Toggle";
+        toggleButton.addEventListener("click", toggleBookRead);
+        buttonDiv.appendChild(toggleButton);
+
         const removeButton = document.createElement('button');
         removeButton.classList.add('remove');
         removeButton.setAttribute('book-index', index);
         removeButton.innerText = "Remove";
         removeButton.addEventListener("click", removeBook);
-
         buttonDiv.appendChild(removeButton);
+
+
         bookDiv.appendChild(buttonDiv);
 
         booksDiv.append(bookDiv);
@@ -105,7 +120,6 @@ form.addEventListener("submit", (e) => {
     loadContent();
     dialog.close();
 })
-
 
 function showModal() {
     dialog.showModal();
