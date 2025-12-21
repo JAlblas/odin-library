@@ -20,29 +20,35 @@ const authorInput = form.querySelector("#authorInput");
 const pagesInput = form.querySelector("#pagesInput");
 const readInput = form.querySelector("#readInput");
 
-const myLibrary = [];
+let myLibrary = JSON.parse(localStorage.getItem("library"));
 
-addBookToLibrary(
-  "Harry Potter and the Philosopher's Stone",
-  "J.K. Rowling",
-  223,
-  true
-);
-addBookToLibrary("A Tale of Two Cities", "Charles Dickens", 448, false);
-addBookToLibrary("The Alchemist", "Paulo Coelho", 163, false);
-addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 310, true);
-addBookToLibrary("And Then There Were None", "Agatha Christie", 272, false);
-addBookToLibrary("The Da Vinci Code", "Dan Brown", 689, true);
+if (myLibrary == null) {
+  myLibrary = [];
+  addBookToLibrary(
+    "Harry Potter and the Philosopher's Stone",
+    "J.K. Rowling",
+    223,
+    true
+  );
+  addBookToLibrary("A Tale of Two Cities", "Charles Dickens", 448, false);
+  addBookToLibrary("The Alchemist", "Paulo Coelho", 163, false);
+  addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 310, true);
+  addBookToLibrary("And Then There Were None", "Agatha Christie", 272, false);
+  addBookToLibrary("The Da Vinci Code", "Dan Brown", 689, true);
+}
 
 function addBookToLibrary(title, author, pages, read) {
   const book = new Book(title, author, pages, read);
   myLibrary.push(book);
+  localStorage.setItem("library", JSON.stringify(myLibrary));
 }
 
 function removeBook(event) {
   const id = event.target.getAttribute("book-id");
   const index = myLibrary.findIndex((book) => book.id == id);
   myLibrary.splice(index, 1);
+  localStorage.setItem("library", JSON.stringify(myLibrary));
+
   loadContent();
 }
 
@@ -52,6 +58,7 @@ function toggleBookRead(event) {
   let book = myLibrary[index];
   if (book) {
     book.toggleRead();
+    localStorage.setItem("library", JSON.stringify(myLibrary));
     loadContent();
   }
 }
