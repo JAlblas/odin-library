@@ -40,13 +40,15 @@ function addBookToLibrary(title, author, pages, read) {
 }
 
 function removeBook(event) {
-  const index = event.target.getAttribute("book-index");
+  const id = event.target.getAttribute("book-id");
+  const index = myLibrary.findIndex((book) => book.id == id);
   myLibrary.splice(index, 1);
   loadContent();
 }
 
-function toggleBookRead() {
-  const index = event.target.getAttribute("book-index");
+function toggleBookRead(event) {
+  const id = event.target.getAttribute("book-id");
+  const index = myLibrary.findIndex((book) => book.id == id);
   let book = myLibrary[index];
   if (book) {
     book.toggleRead();
@@ -85,14 +87,14 @@ function loadContent() {
 
     const toggleButton = document.createElement("button");
     toggleButton.classList.add("toggle");
-    toggleButton.setAttribute("book-index", index);
+    toggleButton.setAttribute("book-id", book.id);
     toggleButton.innerText = "Toggle";
     toggleButton.addEventListener("click", toggleBookRead);
     buttonDiv.appendChild(toggleButton);
 
     const removeButton = document.createElement("button");
     removeButton.classList.add("remove");
-    removeButton.setAttribute("book-index", index);
+    removeButton.setAttribute("book-id", book.id);
     removeButton.innerText = "Remove";
     removeButton.addEventListener("click", removeBook);
     buttonDiv.appendChild(removeButton);
@@ -117,8 +119,6 @@ form.addEventListener("submit", (e) => {
     !pagesInput.validity.valid ||
     !readInput.validity.valid
   ) {
-    console.log("ERROR");
-    console.log(authorInput.validity);
     showError();
     return;
   }
