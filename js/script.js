@@ -57,7 +57,7 @@ function toggleBookRead(event) {
 }
 
 function loadContent() {
-  const booksDiv = document.querySelector(".books");
+  const booksDiv = document.querySelector("#books");
   booksDiv.innerHTML = "";
   myLibrary.forEach((book, index) => {
     const bookDiv = document.createElement("div");
@@ -77,13 +77,13 @@ function loadContent() {
     bookPages.innerText = `${book.pages} pages`;
     bookDiv.appendChild(bookPages);
 
+    const buttonDiv = document.createElement("div");
+    buttonDiv.classList.add("button-div");
+
     const bookRead = document.createElement("p");
     bookRead.classList.add("read");
     bookRead.innerText = book.read ? "Book read" : "Book not read";
-    bookDiv.appendChild(bookRead);
-
-    const buttonDiv = document.createElement("div");
-    buttonDiv.classList.add("button-div");
+    buttonDiv.appendChild(bookRead);
 
     const toggleButton = document.createElement("button");
     toggleButton.classList.add("toggle");

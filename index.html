@@ -17,14 +17,14 @@
   </head>
 
   <body>
-    <div class="container">
-      <nav>
+    <div id="container">
+      <header>
         <h1>Library</h1>
         <button onclick="showModal()">Add Book</button>
-      </nav>
-      <div class="main">
+      </header>
+      <div id="main">
         <h2>Books</h2>
-        <div class="books">
+        <div id="books">
           <p>No books to show</p>
         </div>
       </div>
@@ -54,12 +54,12 @@
 
           <div class="field">
             <label for="read">Read:</label>
-            <input type="checkbox" name="read" id="readInput" required />
+            <input type="checkbox" name="read" id="readInput" />
           </div>
 
           <span class="error" aria-live="polite"></span>
 
-          <input id="createBook" type="submit" value="Add Book" />
+          <button id="createBook" type="submit">Add Book</button>
           <button id="removeModal">Cancel</button>
         </form>
       </dialog>
