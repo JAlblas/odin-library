@@ -9,20 +9,6 @@ Book.prototype.toggleRead = function () {
   this.read = !this.read;
 };
 
-const myLibrary = [
-  new Book(
-    "Harry Potter and the Philosopher's Stone",
-    "J.K. Rowling",
-    223,
-    true
-  ),
-  new Book("A Tale of Two Cities", "Charles Dickens", 448, false),
-  new Book("The Alchemist", "Paulo Coelho", 163, false),
-  new Book("The Hobbit", "J.R.R. Tolkien", 310, true),
-  new Book("And Then There Were None", "Agatha Christie", 272, false),
-  new Book("The Da Vinci Code", "Dan Brown", 689, true),
-];
-
 const dialog = document.querySelector("dialog");
 const createBook = document.querySelector("#createBook");
 const removeModal = document.querySelector("#removeModal");
@@ -32,6 +18,20 @@ const titleInput = form.querySelector("#titleInput");
 const authorInput = form.querySelector("#authorInput");
 const pagesInput = form.querySelector("#pagesInput");
 const readInput = form.querySelector("#readInput");
+
+const myLibrary = [];
+
+addBookToLibrary(
+  "Harry Potter and the Philosopher's Stone",
+  "J.K. Rowling",
+  223,
+  true
+);
+addBookToLibrary("A Tale of Two Cities", "Charles Dickens", 448, false);
+addBookToLibrary("The Alchemist", "Paulo Coelho", 163, false);
+addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 310, true);
+addBookToLibrary("And Then There Were None", "Agatha Christie", 272, false);
+addBookToLibrary("The Da Vinci Code", "Dan Brown", 689, true);
 
 function addBookToLibrary(title, author, pages, read) {
   const book = new Book(title, author, pages, read);
