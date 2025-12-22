@@ -5,7 +5,7 @@ function createBook(title, author, pages, read) {
 }
 
 function createLibrary() {
-  books = [];
+  let books = [];
 
   const fetchBooks = function () {
     savedBooks = JSON.parse(localStorage.getItem("library"));
