@@ -1,75 +1,67 @@
-function Book(title, author, pages, read) {
-  this.id = crypto.randomUUID();
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
+function createBook(title, author, pages, read) {
+  const id = crypto.randomUUID();
+
+  return { id, title, author, pages, read };
 }
 
-function Library() {
-  this.books = [];
-}
+function createLibrary() {
+  books = [];
 
-Library.prototype.fetchBooks = function () {
-  this.books = JSON.parse(localStorage.getItem("library"));
+  const fetchBooks = function () {
+    savedBooks = JSON.parse(localStorage.getItem("library"));
+    if (savedBooks == null || savedBooks.length == 0) {
+      addBook(
+        "Harry Potter and the Philosopher's Stone",
+        "J.K. Rowling",
+        223,
+        true
+      );
+      addBook("A Tale of Two Cities", "Charles Dickens", 448, false);
+      addBook("The Alchemist", "Paulo Coelho", 163, false);
+      addBook("The Hobbit", "J.R.R. Tolkien", 310, true);
+      addBook("And Then There Were None", "Agatha Christie", 272, false);
+      addBook("The Da Vinci Code", "Dan Brown", 689, true);
+    } else {
+      books.push(...savedBooks);
+    }
+  };
 
-  if (this.books == null || this.books.length == 0) {
-    this.books = [];
-    this.addBookToLibrary(
-      "Harry Potter and the Philosopher's Stone",
-      "J.K. Rowling",
-      223,
-      true
-    );
-    this.addBookToLibrary(
-      "A Tale of Two Cities",
-      "Charles Dickens",
-      448,
-      false
-    );
-    this.addBookToLibrary("The Alchemist", "Paulo Coelho", 163, false);
-    this.addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 310, true);
-    this.addBookToLibrary(
-      "And Then There Were None",
-      "Agatha Christie",
-      272,
-      false
-    );
-    this.addBookToLibrary("The Da Vinci Code", "Dan Brown", 689, true);
-  }
-};
+  const addBook = function (title, author, pages, read) {
+    const book = createBook(title, author, pages, read);
+    books.push(book);
+    saveLibrary();
+  };
 
-Library.prototype.addBookToLibrary = function (title, author, pages, read) {
-  const book = new Book(title, author, pages, read);
-  this.books.push(book);
-  localStorage.setItem("library", JSON.stringify(this.books));
-};
+  const removeBook = function (event) {
+    const id = event.target.getAttribute("book-id");
+    const index = books.findIndex((book) => book.id == id);
+    books.splice(index, 1);
+    saveLibrary();
+  };
 
-Library.prototype.removeBook = function (event) {
-  const id = event.target.getAttribute("book-id");
-  const index = this.books.findIndex((book) => book.id == id);
-  this.books.splice(index, 1);
-  localStorage.setItem("library", JSON.stringify(this.books));
+  const toggleBookRead = function (event) {
+    const id = event.target.getAttribute("book-id");
+    const index = books.findIndex((book) => book.id == id);
+    let book = books[index];
+    if (book) {
+      book.read = !book.read;
+    }
+    saveLibrary();
+  };
 
-  loadContent();
-};
-
-Library.prototype.toggleBookRead = function (event) {
-  const id = event.target.getAttribute("book-id");
-  const index = this.books.findIndex((book) => book.id == id);
-  let book = this.books[index];
-  if (book) {
-    book.read = !book.read;
-    localStorage.setItem("library", JSON.stringify(this.books));
+  const saveLibrary = function () {
+    localStorage.setItem("library", JSON.stringify(books));
     loadContent();
-  }
-};
+  };
 
-const myLibrary = new Library();
+  return { books, fetchBooks, addBook, removeBook, toggleBookRead };
+}
+
+const myLibrary = createLibrary();
 myLibrary.fetchBooks();
 
 const dialog = document.querySelector("dialog");
-const createBook = document.querySelector("#createBook");
+const createBookButton = document.querySelector("#createBook");
 const removeModal = document.querySelector("#removeModal");
 
 const form = document.querySelector("form");
@@ -126,9 +118,7 @@ function loadContent() {
       myLibrary.removeBook.bind(myLibrary)
     );
     buttonDiv.appendChild(removeButton);
-
     bookDiv.appendChild(buttonDiv);
-
     booksDiv.append(bookDiv);
   });
 }
@@ -156,7 +146,7 @@ form.addEventListener("submit", (e) => {
   const pages = pagesInput.value;
   const read = readInput.checked;
 
-  myLibrary.addBookToLibrary(title, author, pages, read);
+  myLibrary.addBook(title, author, pages, read);
 
   loadContent();
   dialog.close();
