@@ -35,6 +35,7 @@ function createLibrary() {
   const removeBook = function (event) {
     const id = event.target.getAttribute("book-id");
     const index = books.findIndex((book) => book.id == id);
+    if (index === -1) return;
     books.splice(index, 1);
     saveLibrary();
   };
@@ -42,6 +43,7 @@ function createLibrary() {
   const toggleBookRead = function (event) {
     const id = event.target.getAttribute("book-id");
     const index = books.findIndex((book) => book.id == id);
+    if (index === -1) return;
     let book = books[index];
     if (book) {
       book.read = !book.read;
@@ -103,20 +105,14 @@ function loadContent() {
     toggleButton.classList.add("toggle");
     toggleButton.setAttribute("book-id", book.id);
     toggleButton.innerText = "Toggle";
-    toggleButton.addEventListener(
-      "click",
-      myLibrary.toggleBookRead.bind(myLibrary)
-    );
+    toggleButton.addEventListener("click", myLibrary.toggleBookRead);
     buttonDiv.appendChild(toggleButton);
 
     const removeButton = document.createElement("button");
     removeButton.classList.add("remove");
     removeButton.setAttribute("book-id", book.id);
     removeButton.innerText = "Remove";
-    removeButton.addEventListener(
-      "click",
-      myLibrary.removeBook.bind(myLibrary)
-    );
+    removeButton.addEventListener("click", myLibrary.removeBook);
     buttonDiv.appendChild(removeButton);
     bookDiv.appendChild(buttonDiv);
     booksDiv.append(bookDiv);
