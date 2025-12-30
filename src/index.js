@@ -1,14 +1,11 @@
-function createBook(title, author, pages, read) {
-  const id = crypto.randomUUID();
-
-  return { id, title, author, pages, read };
-}
+import "./style.css";
+import { createBook } from "./Book";
 
 function createLibrary() {
   let books = [];
 
   const fetchBooks = function () {
-    savedBooks = JSON.parse(localStorage.getItem("library"));
+    const savedBooks = JSON.parse(localStorage.getItem("library"));
     if (savedBooks == null || savedBooks.length == 0) {
       addBook(
         "Harry Potter and the Philosopher's Stone",
