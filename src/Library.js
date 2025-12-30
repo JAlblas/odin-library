@@ -1,3 +1,5 @@
+import { createBook } from "./Book";
+
 export function createLibrary() {
   let books = [];
 
@@ -47,7 +49,6 @@ export function createLibrary() {
 
   const saveLibrary = function () {
     localStorage.setItem("library", JSON.stringify(books));
-    loadContent();
   };
 
   return { books, fetchBooks, addBook, removeBook, toggleBookRead };

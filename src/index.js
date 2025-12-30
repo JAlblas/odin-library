@@ -1,5 +1,4 @@
 import "./style.css";
-import { createBook } from "./Book";
 import { createLibrary } from "./Library";
 
 const myLibrary = createLibrary();
@@ -61,6 +60,10 @@ function loadContent() {
     booksDiv.append(bookDiv);
   });
 }
+
+createBookButton.addEventListener("click", (e) => {
+  showModal();
+});
 
 removeModal.addEventListener("click", (e) => {
   e.preventDefault();
